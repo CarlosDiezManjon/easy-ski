@@ -1,0 +1,58 @@
+<mat-toolbar color="primary" class="main-toolbar">
+  <span>EasySki</span>
+  <span class="example-spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="topmenu" *ngIf="isLoggedIn">
+    <mat-icon>menu</mat-icon>
+  </button>
+<mat-menu #topmenu="matMenu">
+  <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+  <button mat-menu-item (click)="logOut()">
+    <mat-icon >exit_to_app</mat-icon>Log out
+   
+  </button>
+</mat-menu>
+
+</mat-toolbar>
+<div class="container" *ngIf="!isLoggedIn">
+  <mat-card>
+      <mat-card-header class="card-header">
+          <mat-card-title>Log in</mat-card-title>
+      </mat-card-header>
+      <form>
+      <mat-card-content class="login">
+          <mat-form-field appearance="outline">
+              <mat-label>Usuario</mat-label>
+              <input matInput placeholder="Username">
+              <mat-hint>Usuario o email</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+              <mat-label>Contraseña</mat-label>
+              <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="logIn()">Log in</button>
+      </mat-card-content>
+  </form>
+  </mat-card>
+</div>
+<mat-spinner *ngIf="wait"></mat-spinner>
+<router-outlet *ngIf="isLoggedIn"></router-outlet>
+
+<mat-button-toggle-group id="footer" #group="matButtonToggleGroup" *ngIf="isLoggedIn" appearance="legacy">
+  <mat-button-toggle mat-icon-button routerLink="/home" value="Home" checked="true">
+    <mat-icon class="icon-footer">home</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle mat-icon-button routerLink="/calendar" value="Calendar">
+    <mat-icon class="icon-footer">calendar_today</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle mat-icon-button routerLink="/search" value="Search">
+    <mat-icon class="icon-footer">search</mat-icon>
+  </mat-button-toggle>
+  <mat-button-toggle mat-icon-button routerLink="/settings" value="Settings">
+    <mat-icon class="icon-footer">settings</mat-icon>
+  </mat-button-toggle>
+  
+</mat-button-toggle-group>
